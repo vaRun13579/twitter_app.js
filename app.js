@@ -182,10 +182,10 @@ app.get(
   authorization,
   async (request, response) => {
     let {tweetId} = request.params
-    let query = `select user.name, reply.reply from reply join user on reply.user_id=user.user_id ;`
+    let query = `select user.name, reply.reply from reply join user on reply.user_id=user.user_id where reply.tweet_id=${tweetId} ;`
     let ans = await db.all(query)
-    let query2 = `select tweet from tweet where tweet_id=${tweetId};`
-    let ans2 = await db.get(query2)
+    //let query2 = `select tweet from tweet where tweet_id=${tweetId};`
+    //let ans2 = await db.get(query2)
     response.send({tweet: ans2['tweet'], replies: ans})
   },
 )
